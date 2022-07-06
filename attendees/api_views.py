@@ -12,18 +12,22 @@ def api_list_attendees(request, conference_id):
     is a list of attendee names and URLS. Each entry in the list
     is a dictionary that contains the name of the attendee and
     the link to the attendee's information.
+    """
 
+    response = []
+    attendees = Attendee.objects.all()
+    for attendee in attendees:
+        response.append(
     {
         "attendees": [
             {
-                "name": attendee's name,
-                "href": URL to the attendee,
-            },
-            ...
+                "name": attendee.name,
+                "href": attendee.get_api_url(),
+            }
         ]
     }
-    """
-    return JsonResponse({})
+        )
+    return JsonResponse({"attendees": response})
 
 
 def api_show_attendee(request, pk):
@@ -34,16 +38,18 @@ def api_show_attendee(request, pk):
     This should return a dictionary with email, name,
     company name, created, and conference properties for
     the specified Attendee instance.
-
-    {
-        "email": the attendee's email,
-        "name": the attendee's name,
-        "company_name": the attendee's company's name,
-        "created": the date/time when the record was created,
-        "conference": {
-            "name": the name of the conference,
-            "href": the URL to the conference,
-        }
-    }
     """
-    return JsonResponse({})
+    attendees = Attendee.objects.get(id=pk)
+    return JsonResponse(
+    {
+        "email": attendees.email,
+        "name": attendees.name,
+        "company_name": attendees.company_name,
+        "created": attendees.created,
+        "conference": {
+            "name": attendees.conference.name,
+            "href": attendees.conference.get_api_url(),
+        },
+    }
+    
+    )

@@ -86,18 +86,22 @@ def api_list_locations(request):
     is a list of location names and URLS. Each entry in the list
     is a dictionary that contains the name of the location and
     the link to the location's information.
+    """
 
+    response = []
+    locations = Location.objects.all()
+    for location in locations:
+        response.append(
     {
         "locations": [
             {
-                "name": location's name,
-                "href": URL to the location,
-            },
-            ...
+                "name": location.name,
+                "href": location.get_api_url(),
+            }
         ]
     }
-    """
-    return JsonResponse({})
+        )
+    return JsonResponse({"locations": response})
 
 
 def api_show_location(request, pk):
@@ -107,14 +111,18 @@ def api_show_location(request, pk):
 
     This should return a dictionary with the name, city,
     room count, created, updated, and state abbreviation.
-
-    {
-        "name": location's name,
-        "city": location's city,
-        "room_count": the number of rooms available,
-        "created": the date/time when the record was created,
-        "updated": the date/time when the record was updated,
-        "state": the two-letter abbreviation for the state,
-    }
     """
-    return JsonResponse({})
+    location = Location.objects.get(id=pk)
+    return JsonResponse(
+    {
+        "name": location.name,
+        "city": location.city,
+        "room_count": location.room_count,
+        "created": location.created,
+        "updated": location.updated,
+        "state": {
+            "name": location.name,
+            "href": location.get_api_url()
+        }
+    }
+    )
