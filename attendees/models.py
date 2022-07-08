@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
+
 class Attendee(models.Model):
     """
     The Attendee model represents someone that wants to attend
