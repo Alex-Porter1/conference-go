@@ -3,6 +3,11 @@ from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
 
+class ConferenceVO(models.Model):
+    import_href = models.CharField(max_length=200, unique=True)
+    name = models.CharField(max_length=200)
+
+
 class Attendee(models.Model):
     """
     The Attendee model represents someone that wants to attend
@@ -15,7 +20,7 @@ class Attendee(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     conference = models.ForeignKey(
-        "events.Conference",
+        ConferenceVO,
         related_name="attendees",
         on_delete=models.CASCADE,
     )
@@ -31,6 +36,7 @@ class Attendee(models.Model):
             self.badge
         except ObjectDoesNotExist:
             Badge.objects.create(attendee=self)
+
 
 class Badge(models.Model):
     """
@@ -49,3 +55,5 @@ class Badge(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
+
+

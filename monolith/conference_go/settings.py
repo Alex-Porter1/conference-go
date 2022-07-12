@@ -27,7 +27,7 @@ SECRET_KEY = (
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "monolith"]
 
 
 # Override the basic User model with a custom User model
@@ -39,7 +39,7 @@ AUTH_USER_MODEL = "accounts.User"
 
 INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
-    "attendees.apps.AttendeesConfig",
+    #"attendees.apps.AttendeesConfig",
     "events.apps.EventsConfig",
     "presentations.apps.PresentationsConfig",
     "django.contrib.admin",

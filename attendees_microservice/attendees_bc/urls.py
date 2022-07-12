@@ -1,4 +1,4 @@
-"""conference_go URL Configuration
+"""attendees_bc URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -17,8 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('admin/', admin.site.urls),
     path("api/", include("attendees.api_urls")),
-    path("api/", include("events.api_urls")),
-    path("api/", include("presentations.api_urls")),
 ]
