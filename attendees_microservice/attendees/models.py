@@ -3,6 +3,14 @@ from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
 
+class AccountVO(models.Model):
+    email = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    is_active = models.BooleanField()
+    updated = models.CharField(max_length=200)
+
+
 class ConferenceVO(models.Model):
     import_href = models.CharField(max_length=200, unique=True)
     name = models.CharField(max_length=200)
